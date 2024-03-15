@@ -1,0 +1,17 @@
+.nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: solid 1px #BDC5CD;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    padding: 14px 50px 23px 50px;
+}
+
+.link {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    border: solid 1px #BDC5CD;
+}
