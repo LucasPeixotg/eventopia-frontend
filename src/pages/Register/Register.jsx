@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import PageHeader from "../../components/PageHeader/PageHeader"
 import StyledLink from "../../components/StyledLink/StyledLink"
 import { useState, useContext } from "react"
@@ -7,6 +7,7 @@ import style from '../../styles/Form.module.css'
 import Input from "../../components/Input/Input"
 import axios from '../../api/axios'
 import AuthContext from "../../context/AuthProvider"
+import XButton from "../../components/XButton/XButton"
 
 
 const REGISTER_URL = "/auth/register"
@@ -42,7 +43,7 @@ export default function Register() {
     return (
         <section className={style.section}>
             <PageHeader 
-                left={<Link to="/profile">x</Link>} 
+                left={<XButton onClick={() => navigate("/profile")}/>} 
                 title={"Criar Conta"} 
                 right={<StyledLink to="/login">Entrar</StyledLink>}
             />
@@ -52,7 +53,7 @@ export default function Register() {
                 <Input onChange={(e) => setCpf(e.target.value)} type="text" placeholder="CPF"/>
                 <Input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Senha"/>
                 <div className={style.actions}>
-                    <Button type="submit">Criar</Button>
+                    <Button type="submit" className={style.submit}>Criar</Button>
                     <StyledLink to="/login">Já possui uma conta?</StyledLink>
                 </div>
             </form>

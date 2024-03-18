@@ -10,11 +10,11 @@ export default function Profile() {
     let content
     if(!auth) {
         content = <>
-        <h1 className={style.loginInfo}>Você não está logado</h1>
-        <div className={style.loginSignupButton}>
-            <Link className={style.linkButton} style={{borderRight: "1px solid #BDC5CD"}} to="/signup">Criar Conta</Link>
-            <Link className={style.linkButton} to="/login">Entrar</Link>
-        </div>
+            <h1 className={style.loginInfo}>Você não está logado</h1>
+            <div className={style.loginSignupButton}>
+                <Link className={style.linkButton} style={{borderRight: "1px solid #BDC5CD"}} to="/signup">Criar Conta</Link>
+                <Link className={style.linkButton} to="/login">Entrar</Link>
+            </div>
         </>
     } else {
         console.log(auth)

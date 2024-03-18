@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import PageHeader from "../../components/PageHeader/PageHeader"
 import StyledLink from "../../components/StyledLink/StyledLink"
 import { useState, useContext } from "react"
@@ -7,6 +7,7 @@ import style from '../../styles/Form.module.css'
 import Input from "../../components/Input/Input"
 import AuthContext from "../../context/AuthProvider"
 import axios from "../../api/axios"
+import XButton from "../../components/XButton/XButton"
 
 const LOGIN_URL = "/auth/login"
 
@@ -40,7 +41,7 @@ export default function Login() {
     return (
         <section className={style.section}>
             <PageHeader 
-                left={<Link to="/profile">x</Link>} 
+                left={<XButton onClick={() => navigate("/profile")}/>} 
                 title={"Entrar"} 
                 right={<StyledLink to="/signup">Criar Conta</StyledLink>}
             />
@@ -48,7 +49,7 @@ export default function Login() {
                 <Input onChange={e => setCpf(e.target.value)} type="text" placeholder="CPF"/>
                 <Input onChange={e => setPassword(e.target.value)} type="password" placeholder="Senha"/>
                 <div className={style.actions}>
-                    <Button type="submit">Entrar</Button>
+                    <Button type="submit" className={style.submit}>Entrar</Button>
                     <StyledLink>Esqueceu Sua Senha?</StyledLink>
                 </div>
             </form>

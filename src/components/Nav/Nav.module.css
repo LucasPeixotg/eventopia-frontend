@@ -11,7 +11,16 @@
 
 .link {
     border-radius: 50%;
-    height: 32px;
-    width: 32px;
-    border: solid 1px #BDC5CD;
+    height: 45px;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #9233DC;
+    background-color: #E8E8E8;
+}
+
+.selected {
+    color: #FAFAFA;
+    background-color: #9233DC;
 }
