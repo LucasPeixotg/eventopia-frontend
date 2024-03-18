@@ -1,29 +1,39 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import PageHeader from "../../components/PageHeader/PageHeader"
 import StyledLink from "../../components/StyledLink/StyledLink"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import Button from '../../components/Button/Button'
 import style from '../../styles/Form.module.css'
 import Input from "../../components/Input/Input"
 import axios from '../../api/axios'
+import AuthContext from "../../context/AuthProvider"
+
 
 const REGISTER_URL = "/auth/register"
 
 export default function Register() {
+    const navigate = useNavigate()
     const [name, setName] = useState("")
     const [cpf, setCpf] = useState("")
     const [password, setPassword] = useState("")
 
+    const { setAuth } = useContext(AuthContext)
 
     async function submit(event) {
         event.preventDefault()
 
         try {
-            alert(JSON.stringify({name, cpf, password}))
             const response = await axios.post(REGISTER_URL, JSON.stringify({ name, cpf, password }), {
                 headers: { "Content-Type": "application/json",}
             })
-            console.log(response)
+
+            if(response.status === 200) {
+                setAuth({ username: response.data.name, token: response.data.token })
+                navigate("/")
+            } else {
+                console.log(response.status)
+            }
+
         } catch(err) {
             console.log(err)
         }

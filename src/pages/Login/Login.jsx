@@ -1,29 +1,40 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import PageHeader from "../../components/PageHeader/PageHeader"
 import StyledLink from "../../components/StyledLink/StyledLink"
-import { useEffect, useRef } from "react"
+import { useState, useContext } from "react"
 import Button from '../../components/Button/Button'
 import style from '../../styles/Form.module.css'
 import Input from "../../components/Input/Input"
+import AuthContext from "../../context/AuthProvider"
+import axios from "../../api/axios"
+
+const LOGIN_URL = "/auth/login"
 
 export default function Login() {
-    const emailRef = useRef() 
-    const passwordRef = useRef() 
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        emailRef.current.focus()
-    }, [])
+    const { setAuth } = useContext(AuthContext)
 
-    function handleEmailChange(event) {
-        emailRef.current = event.target.value
-    }
+    const [cpf, setCpf] = useState("")
+    const [password, setPassword] = useState("")
 
-    function handlePasswordChange(event) {
-        passwordRef.current = event.target.value
-    }
+    async function submit(event) {
+        event.preventDefault()
 
-    function submit() {
-        alert(`email: ${emailRef} , pass: ${passwordRef}`)
+        try {
+            const response = await axios.post(LOGIN_URL, JSON.stringify({ cpf, password }), {
+                headers: { "Content-Type": "application/json",}
+            })
+
+            if(response.status === 200) {
+                setAuth({ username: response.data.name, token: response.data.token })
+                navigate("/")
+            } else {
+                console.log(response.status)
+            }
+        } catch(err) {
+            console.log(err)
+        }
     }
     
     return (
@@ -34,8 +45,8 @@ export default function Login() {
                 right={<StyledLink to="/signup">Criar Conta</StyledLink>}
             />
             <form onSubmit={submit} className={style.form}>
-                <Input onChange={handleEmailChange} ref={emailRef} type="text" placeholder="Email/CPF"/>
-                <Input onChange={handlePasswordChange} ref={passwordRef} type="password" placeholder="Senha"/>
+                <Input onChange={e => setCpf(e.target.value)} type="text" placeholder="CPF"/>
+                <Input onChange={e => setPassword(e.target.value)} type="password" placeholder="Senha"/>
                 <div className={style.actions}>
                     <Button type="submit">Entrar</Button>
                     <StyledLink>Esqueceu Sua Senha?</StyledLink>
