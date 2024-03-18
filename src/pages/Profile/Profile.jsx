@@ -20,10 +20,6 @@ export default function Profile() {
         console.log(auth)
         content = <>
             <h1 className={style.loginInfo}>Olá, {auth.username}</h1>
-            <div className={style.loginSignupButton}>
-                <Link className={style.linkButton} style={{borderRight: "1px solid #BDC5CD"}} to="/signup">Criar Conta</Link>
-                <Link className={style.linkButton} to="/login">Entrar</Link>
-            </div>
         </>
     }
 
